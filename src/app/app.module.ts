@@ -4,17 +4,20 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { TodoDataService } from './todo-data.service';
-import { HttpService } from './services/http.service';
+import { SWService } from './services/sw.service';
 import { AppComponent } from './app.component';
 import { NavComponent } from './components/nav/nav.component';
 import { routing } from './configs/nav.config';
 import { StarWarsComponent } from './components/star-wars/star-wars.component';
+import { HomeComponent } from './components/home/home.component';
+import { NavResolver } from './resolvers/nav.resolver';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
-    StarWarsComponent
+    StarWarsComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +25,7 @@ import { StarWarsComponent } from './components/star-wars/star-wars.component';
     HttpModule,
     routing
   ],
-  providers: [TodoDataService, HttpService],
+  providers: [TodoDataService, SWService, NavResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from '../../services/http.service';
 import { Response } from "@angular/http";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-star-wars',
@@ -9,15 +9,12 @@ import { Response } from "@angular/http";
 })
 export class StarWarsComponent implements OnInit {
 
-  constructor(private httpService: HttpService) { }
-
- data = {};
-
-  ngOnInit() {
-    this.httpService.getData()
-    .subscribe(
-      data => this.data = data.json()
-    );
+  constructor(public route:ActivatedRoute) {
+    this.route.data.subscribe(val => this.keys = Object.keys(val['navList']));
   }
+
+  keys: any[] = [];
+  
+  ngOnInit() {}
 
 }

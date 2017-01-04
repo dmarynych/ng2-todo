@@ -1,15 +1,19 @@
 import { Routes, RouterModule } from "@angular/router";
-import { AppComponent } from '../app.component';
+import { HomeComponent } from '../components/home/home.component';
 import { StarWarsComponent } from '../components/star-wars/star-wars.component';
+import { NavResolver } from '../resolvers/nav.resolver';
 
 const APP_ROUTES: Routes = [
     {
         path: 'home',
-        component: AppComponent
+        component: HomeComponent
     },
     {
         path: 'starwars',
-        component: StarWarsComponent
+        component: StarWarsComponent,
+        resolve: {
+          navList: NavResolver
+        }
     },
     {
         path: '',
