@@ -19,14 +19,16 @@ export class Competitions implements OnInit {
                 this.table = data.standings;
                 this.keys = Object.keys(this.table)
             } else {
+                this.leagueCaption = data.leagueCaption;
                 this.table = data.standing;
             }
 
             console.log(this.table)
         });
     }
-
-    competitions = []
+    
+    leagueCaption = '';
+    competitions = [];
 
     table: any[] = [];
 

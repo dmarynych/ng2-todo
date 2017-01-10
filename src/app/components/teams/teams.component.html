@@ -1,9 +1,20 @@
 <h3>{{team.name}}</h3>
 <img [src]="team.crestUrl" [alt]="team.name" width="50px">
 <p>Market Value - {{team.squadMarketValue}}</p>
-
+<a [routerLink]="['/players', team.teamId]">Players</a>
 <ol>
   <li *ngFor='let game of team.games'>
-    {{game.homeTeamName}} - {{game.awayTeamName}} ( {{game.result.goalsHomeTeam}} : {{game.result.goalsAwayTeam}} )
+    <span [style.font-weight]="game.homeWin ? 'bold' : 'normal'">{{game.homeTeamName}}</span>
+    - 
+    <span [style.font-weight]="!game.homeWin ? 'bold' : 'normal'">{{game.awayTeamName}}</span>
+
+    <span *ngIf="game.status === 'FINISHED'">    
+      <span [style.font-weight]="game.homeWin ? 'bold' : 'normal'">{{game.result.goalsHomeTeam}}</span> 
+      : 
+      <span [style.font-weight]="!game.homeWin ? 'bold' : 'normal'">{{game.result.goalsAwayTeam}}</span>
+    </span>
+    <span *ngIf="game.status === 'SCHEDULED'">    
+      <span>{{game.date | date:'short'}}</span>      
+    </span>
   </li>
 </ol>

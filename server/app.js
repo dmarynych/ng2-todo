@@ -5,6 +5,12 @@ const app = express();
 
 const token = '';
 
+let instance = axios.create({
+  baseURL: 'https://api.football-data.org/v1/',
+  timeout: 1000,
+  headers: {'X-Auth-Token': token}
+});
+
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -12,19 +18,15 @@ app.use(function (req, res, next) {
 });
 
 app.get('/competitions', function (req, res) {
-    axios.get('https://api.football-data.org/v1/competitions/', {
-        headers: { 'X-Auth-Token': token },
-    }).then(response => {
-        console.log(response)
+    instance.get('competitions/').then(response => {
+        //console.log(response)
         res.send(response.data);
     })
-
 });
 
 app.get('/competitions/:id/leagueTable', function (req, res) {
-    axios.get(`https://api.football-data.org/v1/competitions/${req.params.id}/leagueTable`, {
-        headers: { 'X-Auth-Token': token },
-    }).then(response => {
+    instance.get(`competitions/${req.params.id}/leagueTable`)
+    .then(response => {
         let data = response.data;
         if (data.standing) {
             data.standing = data.standing.map(stand => {
@@ -40,19 +42,28 @@ app.get('/competitions/:id/leagueTable', function (req, res) {
 
 
 app.get('/teams/:id', function (req, res) {
-    axios.all([
-    axios.get(`https://api.football-data.org/v1/teams/${req.params.id}`, {
-        headers: { 'X-Auth-Token': token },
-    }),
-    axios.get(`https://api.football-data.org/v1/teams/${req.params.id}/fixtures`, {
-        headers: { 'X-Auth-Token': token },
-    })
+  axios.all([
+    instance.get(`teams/${req.params.id}`),
+    instance.get(`teams/${req.params.id}/fixtures`)
   ])
   .then(axios.spread(function (teamResponse, fixturesResponse) {
-    teamResponse.data.games = fixturesResponse.data.fixtures
+    let fixtures = fixturesResponse.data.fixtures;
+    fixtures = fixtures.map(fixture => {
+        fixture.homeWin = fixture.result.goalsHomeTeam > fixture.result.goalsAwayTeam;
+        return fixture;
+    })
+    teamResponse.data.games = fixtures;
+    teamResponse.data.teamId = req.params.id;
     res.send(teamResponse.data);
   }));
+});
 
+app.get('/players/:id', function (req, res) {
+  instance.get(`/teams/${req.params.id}/players`)
+  .then(response => {
+      console.log(response.data)
+        res.send(response.data);
+    })
 });
 
 app.listen(3000, function () {

@@ -2,10 +2,12 @@ import { Routes, RouterModule } from "@angular/router";
 import { HomeComponent } from '../components/home/home.component';
 import { Competitions } from '../components/competitions/competitions.component';
 import { TeamsComponent } from '../components/teams/teams.component';
+import { PlayersComponent } from '../components/players/players.component';
 
 import { NavResolver } from '../resolvers/nav.resolver';
 import { CompetitionsResolver } from '../resolvers/competitions.resolver';
 import { TeamsResolver } from '../resolvers/teams.resolver';
+import { PlayersResolver } from '../resolvers/players.resolver';
 
 const APP_ROUTES: Routes = [
     {
@@ -24,7 +26,13 @@ const APP_ROUTES: Routes = [
             competition: CompetitionsResolver
         }
     },
-    
+    {
+        path: 'players/:id',
+        component: PlayersComponent,
+         resolve: {
+            players: PlayersResolver
+        }
+    },
     {
         path: 'teams/:id',
         component: TeamsComponent,
