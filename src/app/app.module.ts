@@ -4,20 +4,27 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { TodoDataService } from './todo-data.service';
-import { SWService } from './services/sw.service';
+import { CompetitionsService } from './services/competitions.service';
+import { TeamsService } from './services/teams.service';
+
 import { AppComponent } from './app.component';
 import { NavComponent } from './components/nav/nav.component';
 import { routing } from './configs/nav.config';
-import { StarWarsComponent } from './components/star-wars/star-wars.component';
 import { HomeComponent } from './components/home/home.component';
-import { NavResolver } from './resolvers/nav.resolver';
+
+import { TeamsComponent } from './components/teams/teams.component';
+import { Competitions } from './components/competitions/competitions.component';
+
+import { CompetitionsResolver } from './resolvers/competitions.resolver';
+import { TeamsResolver } from './resolvers/teams.resolver';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
-    StarWarsComponent,
-    HomeComponent
+    HomeComponent,
+    TeamsComponent,
+    Competitions
   ],
   imports: [
     BrowserModule,
@@ -25,7 +32,7 @@ import { NavResolver } from './resolvers/nav.resolver';
     HttpModule,
     routing
   ],
-  providers: [TodoDataService, SWService, NavResolver],
+  providers: [TodoDataService, CompetitionsService, CompetitionsResolver, TeamsResolver, TeamsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,46 @@
+<table *ngIf="!groups">
+  <thead>
+    <tr>
+      <td>img</td>
+      <td>title</td>
+      <td>points</td>
+      <td>wins</td>
+      <td>draws</td>
+      <td>losses</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor='let team of table'>
+      <td><img src="{{team.crestURI}}" width="50px" alt=""></td>
+      <td><a [routerLink]="['/teams', team.id]">{{team.teamName}}</a></td>
+      <td>{{team.points}}</td>
+      <td>{{team.wins}}</td>
+      <td>{{team.draws}}</td>
+      <td>{{team.losses}}</td>
+    </tr>
+  </tbody>
+</table>
+
+<div *ngIf="groups">
+  <div *ngFor='let key of keys'>
+    Group <strong>{{key}}</strong> <br>
+    <table>
+      <thead>
+        <tr>
+          <td>img</td>
+          <td>title</td>
+          <td>points</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor='let team of table[key]'>
+          <td><img [src]="team.crestURI" width="50px" alt=""></td>
+          <td>{{team.team}}</td>
+          <td>{{team.points}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <hr>
+  </div>
+</div>

@@ -1,3 +1,10 @@
 <p>
-  home works!
+  Competitions:
 </p>
+
+<div *ngIf="competitions.length">
+  <div *ngFor='let competition of competitions'>
+    <a [routerLink]="['/competitions', competition.id]">{{competition.caption}}</a>    
+  </div>
+</div>
+

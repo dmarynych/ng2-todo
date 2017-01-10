@@ -1,0 +1,9 @@
+<h3>{{team.name}}</h3>
+<img [src]="team.crestUrl" [alt]="team.name" width="50px">
+<p>Market Value - {{team.squadMarketValue}}</p>
+
+<ol>
+  <li *ngFor='let game of team.games'>
+    {{game.homeTeamName}} - {{game.awayTeamName}} ( {{game.result.goalsHomeTeam}} : {{game.result.goalsAwayTeam}} )
+  </li>
+</ol>
