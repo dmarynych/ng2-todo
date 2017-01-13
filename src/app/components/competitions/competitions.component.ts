@@ -11,7 +11,10 @@ import 'rxjs/Rx';
 })
 export class Competitions implements OnInit {
 
-    constructor(private route: ActivatedRoute, private http: Http) {
+    constructor(
+      private route: ActivatedRoute,
+      private http: Http
+    ) {
         this.route.data.subscribe(val => {
             const data = val['competition'].json();
             if (data.standings) {
@@ -25,8 +28,15 @@ export class Competitions implements OnInit {
 
             console.log(this.table)
         });
+
+      this.route.params.subscribe(params => {
+        if (params['id']) {
+          this.saveCompetition(params['id']);
+        }
+      });
+
     }
-    
+
     leagueCaption = '';
     competitions = [];
 
@@ -40,5 +50,23 @@ export class Competitions implements OnInit {
         console.log("Competitions");
     }
 
+    saveCompetition(id) {
+      let list: any = localStorage.getItem('lastCompetitions');
+      list = JSON.parse(list);
+
+      if(!list) {
+        list = [];
+      }
+
+      if(!list.includes(id)) {
+        list.push(parseInt(id));
+      }
+
+      if(list.length > 2) {
+        list.shift();
+      }
+
+      localStorage.setItem('lastCompetitions', JSON.stringify(list));
+    }
 
 }
