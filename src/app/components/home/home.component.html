@@ -1,10 +1,23 @@
-<p>
-  Competitions:
-</p>
+
+<div *ngIf="lastCompetitions.length">
+  <h4>
+    Last viewed competitions:
+  </h4>
+
+  <div *ngFor='let competition of lastCompetitions'>
+    <a [routerLink]="['/competitions', competition.id]">{{competition.caption}}</a>
+  </div>
+</div>
+
+
 
 <div *ngIf="competitions.length">
+  <h4>
+    Competitions:
+  </h4>
+
   <div *ngFor='let competition of competitions'>
-    <a [routerLink]="['/competitions', competition.id]">{{competition.caption}}</a>    
+    <a [routerLink]="['/competitions', competition.id]">{{competition.caption}}</a>
   </div>
 </div>
 
