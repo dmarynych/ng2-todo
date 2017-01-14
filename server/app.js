@@ -3,7 +3,7 @@ const express = require('express');
 
 const app = express();
 
-const token = '0e3a0708e38943aaa7913bb2844df566';
+const token = '';
 
 let instance = axios.create({
     baseURL: 'https://api.football-data.org/v1/',
