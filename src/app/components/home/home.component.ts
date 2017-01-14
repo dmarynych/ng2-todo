@@ -15,12 +15,13 @@ export class HomeComponent implements OnInit {
     this.route.data.subscribe(val => {
       this.homeData = val['home'].json();
 
-      this.competitions = val['competitions'].json();
+      this.allCompetitions = val['competitions'].json();
 
     });
   }
 
-  competitions = [];
+  allCompetitions: any[] = [];
+  competitions: any[] = [];
   lastCompetitions: number[] = [];
   table: any[] = [];
   homeData: {} = {};
@@ -29,12 +30,12 @@ export class HomeComponent implements OnInit {
     let lastIds = this.getLastCompetitions();
     console.log('l', lastIds, this.competitions);
 
-    this.competitions = this.competitions.filter(cmp => {
+    this.competitions = this.allCompetitions.filter(cmp => {
       console.log('cmp', cmp.id, lastIds.includes(cmp.id));
       return !lastIds.includes(cmp.id);
     });
 
-    this.lastCompetitions = this.competitions.filter(cmp => lastIds.includes(cmp.id));
+    this.lastCompetitions = this.allCompetitions.filter(cmp => lastIds.includes(cmp.id));
   }
 
   getLastCompetitions() {
