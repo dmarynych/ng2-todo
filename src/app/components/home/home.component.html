@@ -1,5 +1,5 @@
 
-<div *ngIf="lastCompetitions.length">
+<div *ngIf="lastCompetitions.length" class="competitions">
   <h4>
     Last viewed competitions:
   </h4>
@@ -10,8 +10,7 @@
 </div>
 
 
-
-<div *ngIf="competitions.length">
+<div *ngIf="competitions.length" class="competitions">
   <h4>
     Competitions:
   </h4>
@@ -20,4 +19,20 @@
     <a [routerLink]="['/competitions', competition.id]">{{competition.caption}}</a>
   </div>
 </div>
+
+
+<div class="home">
+  <h4>Schedule for {{homeData.timeFrameStart}} - {{homeData.timeFrameEnd}}</h4>
+
+  <div *ngFor='let match of homeData.fixtures'>
+    {{ match.date | date: 'short' }}
+    {{ match.status }}
+    <a [routerLink]="['/teams', match._links.homeTeam.id]">{{match.homeTeamName}}</a>
+    -
+    <a [routerLink]="['/teams', match._links.awayTeam.id]">{{match.awayTeamName}}</a>
+  </div>
+</div>
+
+<!-- TODO Implement previous 2 matches result and Name of a competition -->
+
 

@@ -6,13 +6,12 @@ import { CompetitionsService } from '../services/competitions.service';
 @Injectable()
 export class CompetitionsResolver implements Resolve<any> {
   constructor(
-    private competitionsService: CompetitionsService,
-    private route: ActivatedRoute,
+    private competitionsService: CompetitionsService
   ) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     let id = route.params['id'];
-    
+
     return this.competitionsService.getCompetitions(id);
   }
 }

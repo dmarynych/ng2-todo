@@ -12,7 +12,7 @@
   </thead>
   <tbody>
     <tr *ngFor='let team of table'>
-      <td><img src="{{team.crestURI}}" width="50px" alt=""></td>
+      <td><img src="{{team.crestURI}}" onerror="this.src='/assets/images/default.jpg'"  width="50px" [alt]="team.teamName"></td>
       <td><a [routerLink]="['/teams', team.id]">{{team.teamName}}</a></td>
       <td>{{team.points}}</td>
       <td>{{team.wins}}</td>

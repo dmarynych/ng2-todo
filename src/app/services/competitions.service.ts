@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from "@angular/http";
+import { config } from '../configs/app.config';
 import 'rxjs/Rx';
 
-const apiUrl = 'https://swapi.co/api/';
 
 @Injectable()
 export class CompetitionsService {
@@ -10,7 +10,11 @@ export class CompetitionsService {
   constructor(private http: Http) { }
 
   getCompetitions(id) {
-    let request = `http://localhost:3000/competitions/${id}/leagueTable`;
+    let request = `${config.APIUrl}/competitions`;
+
+    if(id){
+      request += `/${id}/leagueTable`;
+    }
 
     return this.http.get(request)
   }

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from "@angular/http";
+import { Http } from "@angular/http";
 import 'rxjs/Rx';
 
+import { config } from '../configs/app.config';
 
 @Injectable()
 export class PlayersService {
@@ -9,7 +10,7 @@ export class PlayersService {
   constructor(private http: Http) { }
 
   getPlayers(id) {
-    let request = `http://localhost:3000/players/${id}`;
+    let request = `${config.APIUrl}/players/${id}`;
 
     return this.http.get(request)
   }
