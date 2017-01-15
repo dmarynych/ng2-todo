@@ -1,3 +1,6 @@
+import { ArrayObservable } from 'rxjs/observable/ArrayObservable';
+import { InlineArray } from '@angular/core/src/linker/view_utils';
+import { ArrayType } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 
 import { Http, Response, Headers, RequestOptions } from "@angular/http";
@@ -38,7 +41,7 @@ export class HomeComponent implements OnInit {
     this.lastCompetitions = this.allCompetitions.filter(cmp => lastIds.includes(cmp.id));
   }
 
-  getLastCompetitions() {
+  getLastCompetitions(): any {
     let list: any = localStorage.getItem('lastCompetitions');
     list = JSON.parse(list);
 

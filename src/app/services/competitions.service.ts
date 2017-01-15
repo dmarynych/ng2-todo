@@ -9,7 +9,7 @@ export class CompetitionsService {
 
   constructor(private http: Http) { }
 
-  getCompetitions(id) {
+  getCompetitions(id: number) {
     let request = `${config.APIUrl}/competitions`;
 
     if(id){
@@ -18,4 +18,11 @@ export class CompetitionsService {
 
     return this.http.get(request)
   }
+
+  getCompetitionsFixture(id: number) {
+    let request = `${config.APIUrl}/competitions/${id}/fixtures/`;
+
+    return this.http.get(request)
+  }
+
 }

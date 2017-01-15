@@ -9,7 +9,7 @@ export class PlayersService {
 
   constructor(private http: Http) { }
 
-  getPlayers(id) {
+  getPlayers(id: string | number) {
     let request = `${config.APIUrl}/players/${id}`;
 
     return this.http.get(request)

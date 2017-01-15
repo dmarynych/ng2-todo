@@ -21,7 +21,7 @@ import { PlayersComponent } from './components/players/players.component';
 import { Competitions } from './components/competitions/competitions.component';
 
 //RESOLVERS
-import { CompetitionsResolver } from './resolvers/competitions.resolver';
+import { CompetitionsResolver, CompetitionsFixturesResolver } from './resolvers/competitions.resolver';
 import { TeamsResolver } from './resolvers/teams.resolver';
 import { PlayersResolver } from './resolvers/players.resolver';
 import { HomeResolver } from './resolvers/home.resolver';
@@ -48,7 +48,8 @@ import { HomeResolver } from './resolvers/home.resolver';
     TodoDataService,
     CompetitionsService,
 
-    CompetitionsResolver,
+    CompetitionsFixturesResolver,
+    CompetitionsResolver,    
     TeamsResolver,
     PlayersResolver,
     HomeResolver,

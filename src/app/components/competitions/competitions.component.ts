@@ -17,6 +17,10 @@ export class Competitions implements OnInit {
     ) {
         this.route.data.subscribe(val => {
             const data = val['competition'].json();
+            const fixtures = val['fixtures'].json();
+// TODO create component for fixtures (matches) and mapper with result (win/lose)
+            this.fixtures = fixtures;
+
             if (data.standings) {
                 this.groups = true;
                 this.table = data.standings;
@@ -26,7 +30,7 @@ export class Competitions implements OnInit {
                 this.table = data.standing;
             }
 
-            console.log(this.table)
+            //console.log(this.table)
         });
 
       this.route.params.subscribe(params => {
@@ -38,8 +42,8 @@ export class Competitions implements OnInit {
     }
 
     leagueCaption = '';
-    competitions = [];
-
+    //competitions = [];
+    fixtures = {};
     table: any[] = [];
 
     groups: boolean = false

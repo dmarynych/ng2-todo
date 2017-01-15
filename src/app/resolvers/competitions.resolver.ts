@@ -15,3 +15,16 @@ export class CompetitionsResolver implements Resolve<any> {
     return this.competitionsService.getCompetitions(id);
   }
 }
+
+@Injectable()
+export class CompetitionsFixturesResolver implements Resolve<any> {
+  constructor(
+    private competitionsService: CompetitionsService
+  ) { }
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    let id = route.params['id'];
+
+    return this.competitionsService.getCompetitionsFixture(id);
+  }
+}

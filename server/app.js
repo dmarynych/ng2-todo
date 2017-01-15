@@ -7,7 +7,7 @@ const token = '';
 
 let instance = axios.create({
     baseURL: 'https://api.football-data.org/v1/',
-    timeout: 1000,
+    //timeout: 1000,
     headers: { 'X-Auth-Token': token }
 });
 
@@ -29,6 +29,12 @@ app.get('/home', function (req, res) {
             return match;
         })
 
+        res.send(response.data);
+    })
+});
+
+app.get('/competitions/:id/fixtures', function (req, res) {
+    instance.get(`competitions/${req.params.id}/fixtures/`).then(response => {
         res.send(response.data);
     })
 });
