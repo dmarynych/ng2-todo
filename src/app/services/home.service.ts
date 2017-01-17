@@ -13,4 +13,9 @@ export class HomeService {
         let request = `${config.APIUrl}/home`;
         return this.http.get(request)
     }
+
+    getHistory(id){
+        let request = `${config.APIUrl}/fixtures/${id}`;
+        return this.http.get(request)
+    }
 }

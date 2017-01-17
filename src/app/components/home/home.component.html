@@ -24,12 +24,17 @@
 <div class="home">
   <h4>Schedule for {{homeData.timeFrameStart}} - {{homeData.timeFrameEnd}}</h4>
 
-  <div *ngFor='let match of homeData.fixtures'>
+  <div *ngFor='let match of homeData.fixtures, let i = index;'>
+    <h5 *ngIf="isNewCompetition(match, i)">
+      {{ vocablurary[match._links.competition.id] }}
+    </h5>
+    
     {{ match.date | date: 'short' }}
     {{ match.status }}
     <a [routerLink]="['/teams', match._links.homeTeam.id]">{{match.homeTeamName}}</a>
     -
     <a [routerLink]="['/teams', match._links.awayTeam.id]">{{match.awayTeamName}}</a>
+    <a [routerLink]="['/history', match._links.self.id]">history</a>
   </div>
 </div>
 

@@ -17,18 +17,29 @@ app.use(function (req, res, next) {
     next();
 });
 
+function getLastUrlId(url){
+    const splitted = url.split('/');
+    return Number(splitted[splitted.length - 1]);
+}
+
 app.get('/home', function (req, res) {
     instance.get('fixtures').then(response => {
         response.data.fixtures = response.data.fixtures.map(match => {
-            let homeTeam = match._links.homeTeam.href.split('/');
-            let awayTeam = match._links.awayTeam.href.split('/');
-
-            match._links.homeTeam.id = Number(homeTeam[homeTeam.length - 1]);
-            match._links.awayTeam.id = Number(awayTeam[awayTeam.length - 1]);
+            match._links.homeTeam.id = getLastUrlId(match._links.homeTeam.href);
+            match._links.awayTeam.id = getLastUrlId(match._links.awayTeam.href);
             
+            match._links.competition.id = getLastUrlId(match._links.competition.href);
+
+            match._links.self.id = getLastUrlId(match._links.self.href);
             return match;
         })
 
+        res.send(response.data);
+    })
+});
+
+app.get('/fixtures/:id', function (req, res) {
+    instance.get(`fixtures/${req.params.id}`).then(response => {
         res.send(response.data);
     })
 });
@@ -41,7 +52,6 @@ app.get('/competitions/:id/fixtures', function (req, res) {
 
 app.get('/competitions', function (req, res) {
     instance.get('competitions/').then(response => {
-        //console.log(response)
         res.send(response.data);
     })
 });
@@ -52,9 +62,7 @@ app.get('/competitions/:id/leagueTable', function (req, res) {
             let data = response.data;
             if (data.standing) {
                 data.standing = data.standing.map(stand => {
-                    console.log(stand)
-                    let href = stand._links.team.href.split('/');
-                    stand.id = Number(href[href.length - 1]);
+                    stand.id = getLastUrlId(stand._links.team.href);
                     return stand;
                 })
             }
@@ -83,7 +91,6 @@ app.get('/teams/:id', function (req, res) {
 app.get('/players/:id', function (req, res) {
     instance.get(`/teams/${req.params.id}/players`)
         .then(response => {
-            console.log(response.data)
             res.send(response.data);
         })
 });

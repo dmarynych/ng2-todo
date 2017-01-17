@@ -19,6 +19,11 @@ import { HomeComponent } from './components/home/home.component';
 import { TeamsComponent } from './components/teams/teams.component';
 import { PlayersComponent } from './components/players/players.component';
 import { Competitions } from './components/competitions/competitions.component';
+import { HistoryComponent } from './components/history/history.component';
+import { GameTitleComponent } from './components/common/matchTitle.component';
+
+//DIRECTIVES
+
 
 //RESOLVERS
 import { CompetitionsResolver, CompetitionsFixturesResolver } from './resolvers/competitions.resolver';
@@ -33,7 +38,9 @@ import { HomeResolver } from './resolvers/home.resolver';
     HomeComponent,
     TeamsComponent,
     PlayersComponent,
-    Competitions
+    HistoryComponent,
+    Competitions,
+    GameTitleComponent
   ],
   imports: [
     BrowserModule,
