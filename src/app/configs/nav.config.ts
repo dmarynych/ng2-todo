@@ -4,15 +4,19 @@ import { Competitions } from '../components/competitions/competitions.component'
 import { TeamsComponent } from '../components/teams/teams.component';
 import { PlayersComponent } from '../components/players/players.component';
 
-import { NavResolver } from '../resolvers/nav.resolver';
-import { CompetitionsResolver } from '../resolvers/competitions.resolver';
+import { CompetitionsResolver, CompetitionsFixturesResolver } from '../resolvers/competitions.resolver';
 import { TeamsResolver } from '../resolvers/teams.resolver';
 import { PlayersResolver } from '../resolvers/players.resolver';
+import { HomeResolver } from '../resolvers/home.resolver';
 
 const APP_ROUTES: Routes = [
     {
         path: 'home',
-        component: HomeComponent
+        component: HomeComponent,
+        resolve: {
+            home: HomeResolver,
+            competitions: CompetitionsResolver
+        }
     },    
     {
         path: '',
@@ -23,7 +27,8 @@ const APP_ROUTES: Routes = [
         path: 'competitions/:id',
         component: Competitions,
          resolve: {
-            competition: CompetitionsResolver
+            competition: CompetitionsResolver,
+            fixtures: CompetitionsFixturesResolver
         }
     },
     {
