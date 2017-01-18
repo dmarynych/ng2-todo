@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { DatePipe } from '@angular/common';
 
 // SERVICES
 import { TodoDataService } from './todo-data.service';
@@ -24,6 +25,8 @@ import { GameTitleComponent } from './components/common/matchTitle.component';
 
 //DIRECTIVES
 
+//PIPES
+import { appDatePipe } from './pipes/appDate.pipe';
 
 //RESOLVERS
 import { CompetitionsResolver, CompetitionsFixturesResolver } from './resolvers/competitions.resolver';
@@ -40,7 +43,10 @@ import { HomeResolver } from './resolvers/home.resolver';
     PlayersComponent,
     HistoryComponent,
     Competitions,
-    GameTitleComponent
+    GameTitleComponent,
+    
+    //Pipes
+    appDatePipe
   ],
   imports: [
     BrowserModule,
@@ -60,6 +66,7 @@ import { HomeResolver } from './resolvers/home.resolver';
     TeamsResolver,
     PlayersResolver,
     HomeResolver,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

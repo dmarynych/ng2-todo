@@ -12,7 +12,7 @@ export class CompetitionsService {
   getCompetitions(id: number) {
     let request = `${config.APIUrl}/competitions`;
 
-    if(id){
+    if (id) {
       request += `/${id}/leagueTable`;
     }
 
@@ -22,6 +22,12 @@ export class CompetitionsService {
   getCompetitionsFixture(id: number) {
     let request = `${config.APIUrl}/competitions/${id}/fixtures/`;
 
+    return this.http.get(request)
+  }
+
+  getCompetitionDay(cmpId: number, id: number) {
+    let request = `${config.APIUrl}/competitions/${cmpId}/leagueTable/?matchday=${id}`;
+    
     return this.http.get(request)
   }
 

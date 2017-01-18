@@ -6,25 +6,25 @@
   <h3>Previous games: </h3>
 
   <div *ngIf="data.head2head.lastHomeWinHomeTeam">
-    <h3>last Home Win Home Team</h3>
+    <h3>last Home Win {{data.fixture.homeTeamName}}</h3>
     {{data.head2head.lastHomeWinHomeTeam.date | date:'short'}}
     <span game-title [game]="data.head2head.lastHomeWinHomeTeam"></span>
   </div>
 
   <div *ngIf="data.head2head.lastWinHomeTeam">
-    <h3>Last win home team</h3>
+    <h3>Last win {{data.fixture.homeTeamName}}</h3>
     {{data.head2head.lastWinHomeTeam.date | date:'short'}}
     <span game-title [game]="data.head2head.lastWinHomeTeam"></span>
   </div>
 
   <div *ngIf="data.head2head.lastAwayWinAwayTeam">
-    <h3>last Away Win Away Team</h3>
+    <h3>last Away Win {{data.fixture.awayTeamName}}</h3>
     {{data.head2head.lastAwayWinAwayTeam.date | date:'short'}}
     <span game-title [game]="data.head2head.lastAwayWinAwayTeam"></span>
   </div>
 
   <div *ngIf="data.head2head.lastWinAwayTeam">
-    <h3>last Win Away Team</h3>
+    <h3>last Win {{data.fixture.awayTeamName}}</h3>
     {{data.head2head.lastWinAwayTeam.date | date:'short'}}
     <span game-title [game]="data.head2head.lastWinAwayTeam"></span>
   </div>

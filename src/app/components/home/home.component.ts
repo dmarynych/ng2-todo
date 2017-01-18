@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
       .subscribe(val => {
         this.homeData = val['home'].json();
 
-        this.homeData.fixtures = this.homeData.fixtures.sort((prev, curr) => prev._links.competition.id - curr._links.competition.id);
+       this.sortFixtures();
 
         this.allCompetitions = val['competitions'].json();
 
@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
   vocablurary: Object = {};
   competitions: any[] = [];
   table: any[] = [];
-
+  filter = 'date';
 
 
   ngOnInit() {
@@ -63,7 +63,7 @@ export class HomeComponent implements OnInit {
   }
 
   getHistory(match) {
-    
+
   }
 
   getLastCompetitions(): any {
@@ -73,4 +73,25 @@ export class HomeComponent implements OnInit {
     return list && list.length ? list : [];
   }
 
+  isCheched(val) {
+    return this.filter === val;
+  }
+
+  onSortChange(val) {
+    this.filter = val;
+    this.sortFixtures();
+  }
+  
+  sortFixtures(){
+    if(this.filter === 'league'){
+      this.homeData.fixtures = this.homeData.fixtures.sort((prev, curr) => prev._links.competition.id - curr._links.competition.id);
+    } else if(this.filter === 'date'){
+      this.homeData.fixtures = this.homeData.fixtures.sort((prev, curr) => {
+        let date1 = new Date(prev.date);
+        let date2 = new Date(curr.date);
+        return date1.getTime() - date2.getTime();
+      });
+    }
+    
+  }
 }

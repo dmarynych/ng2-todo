@@ -10,7 +10,7 @@
     </span>
 
     <span *ngIf="game.status !== 'FINISHED'">    
-      {{game.homeTeamName}} - {{game.awayTeamName}} {{game.date | date:'short'}}  
+      {{game.homeTeamName}} - {{game.awayTeamName}} {{game.date | appDate: 'full'}}  
     </span>
   </li>
 </ol>
