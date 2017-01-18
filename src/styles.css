@@ -44,3 +44,11 @@ body {
 .home {
 	float: left;
 }
+
+.fl {
+	float: left;
+}
+
+.clearfix {
+	clear: both;
+}

@@ -1,4 +1,3 @@
-
 <div *ngIf="lastCompetitions.length" class="competitions">
   <h4>
     Last viewed competitions:
@@ -20,6 +19,17 @@
   </div>
 </div>
 
+<div>
+  Sort by:
+  <label>Date
+    <input type="radio" [checked]="isCheched('date')" (change)="onSortChange('date')" />
+  </label>
+
+  <label>League
+    <input type="radio" [checked]="isCheched('league')" (change)="onSortChange('league')" />
+  </label>
+</div>
+
 
 <div class="home">
   <h4>Schedule for {{homeData.timeFrameStart}} - {{homeData.timeFrameEnd}}</h4>
@@ -28,16 +38,12 @@
     <h5 *ngIf="isNewCompetition(match, i)">
       {{ vocablurary[match._links.competition.id] }}
     </h5>
-    
-    {{ match.date | date: 'short' }}
-    {{ match.status }}
-    <a [routerLink]="['/teams', match._links.homeTeam.id]">{{match.homeTeamName}}</a>
-    -
+
+    {{ match.date | appDate: 'full' }} {{ match.status }}
+    <a [routerLink]="['/teams', match._links.homeTeam.id]">{{match.homeTeamName}}</a> -
     <a [routerLink]="['/teams', match._links.awayTeam.id]">{{match.awayTeamName}}</a>
     <a [routerLink]="['/history', match._links.self.id]">history</a>
   </div>
 </div>
 
 <!-- TODO Implement previous 2 matches result and Name of a competition -->
-
-

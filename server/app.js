@@ -5,6 +5,8 @@ const app = express();
 
 const token = '';
 
+let competitions;
+
 let instance = axios.create({
     baseURL: 'https://api.football-data.org/v1/',
     //timeout: 1000,
@@ -17,7 +19,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-function getLastUrlId(url){
+function getLastUrlId(url) {
     const splitted = url.split('/');
     return Number(splitted[splitted.length - 1]);
 }
@@ -27,7 +29,7 @@ app.get('/home', function (req, res) {
         response.data.fixtures = response.data.fixtures.map(match => {
             match._links.homeTeam.id = getLastUrlId(match._links.homeTeam.href);
             match._links.awayTeam.id = getLastUrlId(match._links.awayTeam.href);
-            
+
             match._links.competition.id = getLastUrlId(match._links.competition.href);
 
             match._links.self.id = getLastUrlId(match._links.self.href);
@@ -52,23 +54,46 @@ app.get('/competitions/:id/fixtures', function (req, res) {
 
 app.get('/competitions', function (req, res) {
     instance.get('competitions/').then(response => {
+        if (!competitions) {
+            competitions = response.data;
+        }
         res.send(response.data);
     })
 });
 
 app.get('/competitions/:id/leagueTable', function (req, res) {
-    instance.get(`competitions/${req.params.id}/leagueTable`)
-        .then(response => {
-            let data = response.data;
-            if (data.standing) {
-                data.standing = data.standing.map(stand => {
-                    stand.id = getLastUrlId(stand._links.team.href);
-                    return stand;
-                })
-            }
-            res.send(response.data);
-        })
+    if (req.query.matchday) {
+        instance.get(`competitions/${req.params.id}/leagueTable/?matchday=${req.query.matchday}`)
+            .then(response => {
+                res.send(response.data);
+            })
+    } else {
+        instance.get(`competitions/${req.params.id}/leagueTable`)
+            .then(response => {
+                let id = req.params.id;
+                let data = response.data;
+
+                let league = competitions.find((elem, i, arr) => {
+                    return elem.id == id;
+                });
+
+                if (league) {
+                    data.numberOfMatchdays = league.numberOfMatchdays;
+                    data.id = league.id;
+                }
+
+                if (data.standing) {
+                    data.standing = data.standing.map(stand => {
+                        stand.id = getLastUrlId(stand._links.team.href);
+                        return stand;
+                    })
+                }
+                res.send(response.data);
+            })
+    }
+
 });
+
 
 
 app.get('/teams/:id', function (req, res) {
@@ -79,7 +104,7 @@ app.get('/teams/:id', function (req, res) {
         .then(axios.spread(function (teamResponse, fixturesResponse) {
             let fixtures = fixturesResponse.data.fixtures;
             teamResponse.data.games = fixtures.map(game => {
-                game._links.self.id = getLastUrlId(game._links.self.href);    
+                game._links.self.id = getLastUrlId(game._links.self.href);
                 return game;
             });
             teamResponse.data.teamId = req.params.id;
