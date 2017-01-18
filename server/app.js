@@ -78,14 +78,16 @@ app.get('/teams/:id', function (req, res) {
     ])
         .then(axios.spread(function (teamResponse, fixturesResponse) {
             let fixtures = fixturesResponse.data.fixtures;
-            fixtures = fixtures.map(fixture => {
-                fixture.homeWin = fixture.result.goalsHomeTeam > fixture.result.goalsAwayTeam;
-                return fixture;
-            })
-            teamResponse.data.games = fixtures;
+            teamResponse.data.games = fixtures.map(game => {
+                game._links.self.id = getLastUrlId(game._links.self.href);    
+                return game;
+            });
             teamResponse.data.teamId = req.params.id;
             res.send(teamResponse.data);
-        }));
+        }))
+        .catch(err => {
+            console.log(err)
+        });
 });
 
 app.get('/players/:id', function (req, res) {
