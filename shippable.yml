@@ -12,6 +12,7 @@ branches:
 script: ls
 
 after_success :
+    - ssh -vT stark@foot.onjs.net 'ls'
     #- rsync -az ./app stark@up2.onjs.net:~/hosa-front
     #- rsync -az ./webpack stark@up2.onjs.net:~/hosa-front
     #- rsync -az ./package.json stark@up2.onjs.net:~/hosa-front/package.json
