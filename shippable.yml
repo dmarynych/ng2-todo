@@ -12,10 +12,9 @@ branches:
 script: ls
 
 after_success :
-    - npm -v
     - npm install --unsafe-perm  -g angular-cli
     - rsync -az ./src stark@foot.onjs.net:~/dev/foot-ui
     - rsync -az ./package.json stark@foot.onjs.net:~/dev/foot-ui/package.json
-    - ssh -t stark@foot.onjs.net 'cd ./dev/foot-ui; npm install'
-    - ssh -t stark@foot.onjs.net 'cd ./dev/foot-ui; ng build'
+    - ssh -t -t stark@foot.onjs.net 'cd ./dev/foot-ui; npm install'
+    - ssh -t -t stark@foot.onjs.net 'cd ./dev/foot-ui; ng build'
     - ls
