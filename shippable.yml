@@ -18,5 +18,5 @@ script: ls
 after_success :
     - rsync -az ./src stark@foot.onjs.net:~/dev/foot-ui
     - rsync -az ./package.json stark@foot.onjs.net:~/dev/foot-ui/package.json
-    - ssh -t stark@foot.onjs.net 'cd ./dev/foot-ui; /home/stark/.nvm/versions/v6.6.0/bin/npm install'
-    - ssh -t stark@foot.onjs.net 'cd ./dev/foot-ui; /home/stark/.nvm/versions/v6.6.0/bin/ng build'
+    - ssh -t stark@foot.onjs.net 'cd ./dev/foot-ui; /home/stark/.nvm/versions/v6.9.4/bin/npm install'
+    - ssh -t stark@foot.onjs.net 'cd ./dev/foot-ui; /home/stark/.nvm/versions/v6.9.4/bin/ng build'
